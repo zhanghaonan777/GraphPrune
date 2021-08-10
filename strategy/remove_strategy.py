@@ -5,8 +5,10 @@ from strategy.base import ConstructGraph
 
 class RemoveStrategy(BaseStrategy):
 
-    def __init__(self, ):
+    def __init__(self, dim="KP_level", value="KnowledgePointLevel1"):
         super(RemoveStrategy, self).__init__()
+        self.dim = dim
+        self.value = value
 
     def _fit(self, graph: nx.Graph):
 
@@ -15,9 +17,9 @@ class RemoveStrategy(BaseStrategy):
 
     def _transform(self):
 
-        attr = "KP_level"
+        #attr = "KP_level"
         #print(self.G.nodes())
-        need_rm_nodes = [node for node in self.G.nodes() if self.G.nodes[node].get(attr) == "KnowledgePointLevel1" ]
+        need_rm_nodes = [node for node in self.G.nodes() if self.G.nodes[node].get(self.dim) == self.value]
         print(need_rm_nodes)
         for need_rm_node in need_rm_nodes:
             self.remove_node(need_rm_node)

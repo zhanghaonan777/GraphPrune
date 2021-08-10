@@ -5,9 +5,10 @@ from strategy.base import ConstructGraph
 
 class CutStrategy(BaseStrategy):
 
-    def __init__(self, cut_node_nums=30):
+    def __init__(self, cut_node_nums=30, cut_edges_topk=3):
         super(CutStrategy, self).__init__()
         self.cut_node_nums = cut_node_nums
+        self.cut_edges_topk = cut_edges_topk
 
     def _fit(self, graph: nx.Graph):
 
@@ -19,10 +20,10 @@ class CutStrategy(BaseStrategy):
         nodes = sorted(dict(self.G.degree), reverse=True)[:self.cut_node_nums]
         for node in nodes:
             #self.collect_records(node)
-            self.remove_nodes_edges(node)
+            self.remove_nodes_edges(node, self.cut_edges_topk)
         return self
 
-    def remove_nodes_edges(self, node, topk=3):
+    def remove_nodes_edges(self, node, topk):
 
         edges = self.G.edges(node)
 

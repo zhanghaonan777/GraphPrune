@@ -4,7 +4,7 @@ from collections import defaultdict
 
 class BaseStrategy(object):
 
-    def __init__(self):
+    def __init__(self, *args):
         self._is_fitted = False
         self._collect = defaultdict(list)
 
