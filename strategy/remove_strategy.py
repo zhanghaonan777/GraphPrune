@@ -8,7 +8,10 @@ class RemoveStrategy(BaseStrategy):
     def __init__(self, dim="KP_level", value="KnowledgePointLevel1"):
         super(RemoveStrategy, self).__init__()
         self.dim = dim
-        self.value = value
+        if type(value) == str:
+            self.value = [value]
+        else:
+            self.value = value
 
     def _fit(self, graph: nx.Graph):
 
