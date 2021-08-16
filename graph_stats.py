@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def degree_stats(df, top_strategy_):
     """
 
