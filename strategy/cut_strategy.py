@@ -31,9 +31,11 @@ class CutStrategy(BaseStrategy):
         max_num_index = list(map(degree_list.index, heapq.nlargest(topk, degree_list)))
         need_rm_edges = [list(edges)[index_] for index_ in max_num_index]
         for edge in need_rm_edges:
-
-            self.collect_records(edge[0] + "-" + edge[1])
-            self.G.remove_edge(edge[0], edge[1])
+            try:
+                self.collect_records(edge[0] + "-" + edge[1])
+                self.G.remove_edge(edge[0], edge[1])
+            except:
+                pass
 
         return self
 
