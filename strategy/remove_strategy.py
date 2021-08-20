@@ -20,11 +20,7 @@ class RemoveStrategy(BaseStrategy):
 
     def _transform(self):
 
-        #attr = "KP_level"
-        #print(self.G.nodes())
-
         need_rm_nodes = [node for node in self.G.nodes() if self.G.nodes[node].get(self.dim) in self.value]
-        print(need_rm_nodes)
         for need_rm_node in need_rm_nodes:
             self.remove_node(need_rm_node)
         return self.G

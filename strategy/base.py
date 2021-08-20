@@ -61,6 +61,7 @@ class BaseStrategy(object):
 
         return self._collect
 
+
     def write_records(self, result_path):
 
         result = self.get_records()
@@ -125,7 +126,13 @@ class ConstructGraph(object):
         node_attr = {i.split("&")[1]: i.split("&")[0] for i in self.graph_df[0].tolist() if "&" in i}
         for node, attr in node_attr.items():
 
+            # 增加 kp level 属性
             self.add_node_attr(node, "KP_level", attr)
+
+        # 增加label Question:ff8080814cdb1d93014ce51dabdc1d30 -> Question
+        for node_ in self.G.nodes:
+
+            self.add_node_attr(node_, "label", node_.split(":")[0])
 
         self._is_build = True
         return self
