@@ -2,7 +2,7 @@ import networkx as nx
 import heapq
 from strategy.base import BaseStrategy
 from strategy.base import ConstructGraph
-from graph_stats import degree_select_from_distribute,
+from graph_stats import degree_select_from_distribute, degree_distribute_stat
 
 class BaseCutStrategy(BaseStrategy):
 
