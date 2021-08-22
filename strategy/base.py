@@ -1,6 +1,7 @@
 import networkx as nx
 import pandas as pd
 from collections import defaultdict
+from graph_stats import degree_distribute_stat
 
 class BaseStrategy(object):
 
@@ -31,12 +32,14 @@ class BaseStrategy(object):
 
         self._fit(X)
         self._is_fitted = True
+        print(self.get_all_status_info())
         return self
 
     def transform(self):
 
         self.check_is_fitted()
         self._transform()
+        print(self.get_all_status_info())
         return self.G
 
     def fit_transform(self, X):
@@ -61,6 +64,36 @@ class BaseStrategy(object):
 
         return self._collect
 
+    def get_all_status_info(self):
+
+        status_info = {}
+        self.check_is_fitted()
+        # label info status
+        if getattr(self, "labels", None):
+            for label_ in self.labels:
+                status_info.update({
+                    label_:self.get_status_info("label", label_)
+                })
+
+        # attr info status
+        if getattr(self, "dim", None):
+            for dim_ in self.dim:
+                status_info.update({
+                    dim_:self.get_status_info("KP_level", dim_)
+                })
+        return status_info
+
+    def get_status_info(self, type, label):
+
+        self.check_is_fitted()
+        label_details = {
+            node_: self.G.degree[node_] for node_ in self.G.nodes if self.G.nodes[node_].get(type) == label
+        }
+        self.labels_details.update({
+            label:label_details
+        })
+        label_degree_dic = degree_distribute_stat(label_details)
+        return label_degree_dic
 
     def write_records(self, result_path):
 

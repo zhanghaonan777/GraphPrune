@@ -71,7 +71,7 @@ class CutStrategy(BaseStrategy):
             for node in nodes:
                 #self.collect_records(node)
                 self.remove_nodes_edges(node, self.n_nodes_quantile_nums)
-            print()
+
         return self
 
     def remove_nodes_edges(self, node, n_nodes_quantile_nums):
